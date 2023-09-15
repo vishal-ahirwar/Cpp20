@@ -65,7 +65,9 @@ int main(int argc, char *argv[])
 {
     Class obj{"hello", "world"};
     obj.display();
-    Class obj1(std::move(obj));
+    Class obj1(std::move(Class{"Json", "herry"}));
+    // Class::print();
+    obj1.display();
     obj.display();
     Class::print("End of the main!");
     return 0;
