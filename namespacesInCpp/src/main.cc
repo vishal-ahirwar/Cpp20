@@ -11,28 +11,53 @@ public:
         std::cout << str << "\n";
     };
 };
-void say()
-{
-    VLNT::print("hello! Global Namespace");
-};
+// namespace Global
+// {
+//     void sayHiWithHello()
+//     {
+//         sayHi();
+//         VLNT::print("hello!");
+//     };
+//     namespace Inner
+//     {
+//         void sayHi()
+//         {
+//             VLNT::print("hi, there!");
+//         };
+//         void sayHiWithHelloInner()
+//         {
+//             sayHiWithHello();
+//         }
+//     };
 
-namespace Inner
-{
-    void say()
-    {
-        ::say();
-        VLNT::print("hello! inner Namespace");
-    };
-};
-namespace
-{
+// }
+// void say()
+// {
+//     VLNT::print("hello! Global Namespace");
+// };
 
-}
+// namespace Inner
+// {
+//     void say()
+//     {
+//         ::say();
+//         VLNT::print("hello! inner Namespace");
+//     };
+// };
+// //anonymous namespace example
+// namespace
+// {
+//     void hello()
+//     {
+//         using namespace std;
+//         cout<<"hello, Anonymous!\n";
+//     };
+
+// }
 int main(int argc, char *argv[])
 {
-    Inner::say();
-    say();
-    VLNT::print("End!");
-    //:: to use global namespace stuff;
+    Global::sayHiWithHello();
+    Global::Inner::sayHi();
+    Global::Inner::sayHiWithHelloInner();
     return 0;
 };
