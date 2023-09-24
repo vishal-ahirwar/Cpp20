@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 
-const std::unique_ptr<std::string> &printUnique(const std::unique_ptr<std::string> &ptr)
+const std::shared_ptr<std::string> &printUnique(const std::shared_ptr<std::string> &ptr)
 {
     if (ptr.get() != nullptr)
     {
@@ -14,23 +14,23 @@ const std::unique_ptr<std::string> &printUnique(const std::unique_ptr<std::strin
     return ptr;
 };
 template <typename T>
-std::unique_ptr<T> getUnique()
+std::shared_ptr<T> getShared()
 {
-    return std::make_unique<T>();
+    return std::make_shared<T>();
 };
 template <typename T, int SiZE>
-std::unique_ptr<T[]> getUniqueArray()
+std::shared_ptr<T[]> getSharedArray()
 {
-    return std::make_unique<T[]>(SiZE);
+    return new T[SiZE];
 };
 
 class Agent
 {
 private:
-    std::unique_ptr<std::string> name{getUnique<std::string>()};
-    std::unique_ptr<double> income{getUnique<double>()};
-    std::unique_ptr<int> age{getUnique<int>()};
-    std::unique_ptr<char> bloodGroup{getUnique<char>()};
+    std::shared_ptr<std::string> name{getShared<std::string>()};
+    std::shared_ptr<double> income{getShared<double>()};
+    std::shared_ptr<int> age{getShared<int>()};
+    std::shared_ptr<char> bloodGroup{getShared<char>()};
 
 public:
     Agent(const std::string &name, const double &income, const int &age, const char &bloodGroup)
@@ -53,9 +53,10 @@ public:
         printf("\n\tAgent Name\t:%s\n\tAgent Age\t:%d\n\tAgent Income\t:%lf\n\tAgent BG\t:%c\n", name->c_str(), *age, *income, *bloodGroup);
     };
 };
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    /*Agent rakesh{"Rakesh tokla", 450.90, 21, 'O'};*/
-    std::unique_ptr<Agent[]> array = getUniqueArray<Agent, 45>();
+    std::shared_ptr<Agent>rakesh = getShared<Agent>();
+    std::shared_ptr<Agent>tempRakesh{};
+    std::shared_ptr<Agent[]>agentsList{ new Agent[24] };
     return 0;
 };
