@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 
-const std::shared_ptr<std::string> &printUnique(const std::shared_ptr<std::string> &ptr)
+const std::shared_ptr<std::string> &printShared(const std::shared_ptr<std::string> &ptr)
 {
     if (ptr.get() != nullptr)
     {
@@ -53,10 +53,14 @@ public:
         printf("\n\tAgent Name\t:%s\n\tAgent Age\t:%d\n\tAgent Income\t:%lf\n\tAgent BG\t:%c\n", name->c_str(), *age, *income, *bloodGroup);
     };
 };
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    std::shared_ptr<Agent>rakesh = getShared<Agent>();
-    std::shared_ptr<Agent>tempRakesh{};
-    std::shared_ptr<Agent[]>agentsList{ new Agent[24] };
+    std::shared_ptr<Agent> rakesh = getShared<Agent>();
+    std::cout << rakesh.use_count()<<"\n\n";
+    std::shared_ptr<Agent> tempRakesh{};
+    std::shared_ptr<Agent[]> agentsList{new Agent[20]};
+    std::shared_ptr<std::string> str{std::make_shared<std::string>("Test shared ptr String!")};
+    printShared(printShared(str));
+    printShared(str);
     return 0;
 };

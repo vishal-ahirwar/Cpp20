@@ -10,10 +10,7 @@ public:
     Point(std::initializer_list<std::string> data)
     {
         std::cout << "Initializer list constructor called!\n";
-        for (const std::string &value : data)
-        {
             this->data = data;
-        }
     };
     Point(const std::string &a, const std::string &b)
     {
@@ -41,7 +38,7 @@ int main(int argc, char *argv[])
 {
     Point point{"hello", "there", "i", "mean", "world", "hah", "what", "did", "think", "there", "or", "world", "!"};
     Test t{.a = 2, .b = 5};
-    Test t2{a : 12, b : 34};
+    Test t2{a : 12, b : 34,c:67};
     t.print();
     t2.print();
     point.printData();
