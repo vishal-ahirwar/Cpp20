@@ -12,7 +12,7 @@ public:
     StringAndDouble(const std::string &str = "", const double &data = 0.0) : str(str), data(data){};
     auto getString() const { return this->str; };
     auto getDouble() const { return this->data; };
-    void print() const { std::cout << "[" << str << ", " << data << "]\n"; };
+    void print() const { std::cout << "[" << str << " " << data << "]\n"; };
     StringAndDouble operator+(const StringAndDouble &obj); // as a member
     void operator=(const StringAndDouble &obj);
     StringAndDouble operator-(const StringAndDouble &obj);
@@ -53,14 +53,11 @@ int main(int argc, char *argv[])
 {
     StringAndDouble hello{"hello", 5.5};
     StringAndDouble world{"world", 12.5};
-    // hello=world;
     StringAndDouble helloWorld = hello + space + world;
-    StringAndDouble helloWorld1{hello + space + world};
 
-    helloWorld.print();
-    helloWorld1 = helloWorld1 - world;
-    helloWorld1.print();
-    helloWorld1 = helloWorld1 - hello;
-    helloWorld1.print();
+    helloWorld.print();//[hello world 18]
+    helloWorld = helloWorld - hello - space;
+    helloWorld.print();//[world 12.5]
+
     return 0;
 };
