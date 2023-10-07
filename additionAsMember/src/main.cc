@@ -2,6 +2,9 @@
 // Auto Genrated C++ file by newton CLI
 // Copyright 2023 Vishal Ahirwar //replace it with yout copyright notice!
 #include <iostream>
+#include <cassert>
+#include <string.h>
+
 class StringAndDouble
 {
 private:
@@ -16,12 +19,52 @@ public:
     StringAndDouble operator+(const StringAndDouble &obj); // as a member
     void operator=(const StringAndDouble &obj);
     StringAndDouble operator-(const StringAndDouble &obj);
+    auto operator[](const int index);
+    std::ostream &operator>>(std::ostream &out);
     StringAndDouble(const StringAndDouble &obj);
+    friend std::istream &operator>>(std::istream &in, StringAndDouble &ob);
 };
+
+inline std::istream &operator>>(std::istream &in, StringAndDouble &ob)
+{
+
+    std::cout << "str:>>";
+    std::getline(in, ob.str);
+    std::cout << "double:>>";
+    in >> ob.data;
+    in.clear();
+    in.ignore();
+};
+
+inline std::ostream &operator<<(std::ostream &out, const StringAndDouble &ob)
+{
+    out << ob.getString() << " " << ob.getDouble();
+    return out;
+}
+std::ostream &StringAndDouble::operator>>(std::ostream &out)
+{
+    out << this->str << " " << this->data;
+    return out;
+};
+
 StringAndDouble::StringAndDouble(const StringAndDouble &obj)
 {
     this->str = obj.str;
     this->data = obj.data;
+};
+auto StringAndDouble::operator[](const int index)
+{
+    assert(index >= 0 && index <= 1);
+    if (index == 0)
+    {
+        StringAndDouble temp{this->str};
+        return temp;
+    }
+    else
+    {
+        StringAndDouble temp{"", data};
+        return temp;
+    };
 };
 
 StringAndDouble StringAndDouble::operator-(const StringAndDouble &obj)
@@ -55,9 +98,16 @@ int main(int argc, char *argv[])
     StringAndDouble world{"world", 12.5};
     StringAndDouble helloWorld = hello + space + world;
 
-    helloWorld.print();//[hello world 18]
-    helloWorld = helloWorld - hello - space;
-    helloWorld.print();//[world 12.5]
+    // helloWorld >> std::cout << std::endl;
 
+    helloWorld = helloWorld[0] - hello[1] - space[1];
+
+    // helloWorld >> std::cout << std::endl;
+
+    // helloWorld[1] >> (helloWorld[0] >> std::cout) << std::endl;
+
+    std::cout << helloWorld << std::endl;
+    std::cin >> helloWorld>>space>>world;
+    std::cout << helloWorld << std::endl<<space<<std::endl<<world<<std::endl;
     return 0;
 };
