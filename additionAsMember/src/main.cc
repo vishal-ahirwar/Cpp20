@@ -23,8 +23,24 @@ public:
     std::ostream &operator>>(std::ostream &out);
     StringAndDouble(const StringAndDouble &obj);
     friend std::istream &operator>>(std::istream &in, StringAndDouble &ob);
+    friend void operator+=(StringAndDouble&left,const StringAndDouble&right);
+    friend  void operator-=(StringAndDouble&left,const StringAndDouble&right);
 };
+inline void operator+=(StringAndDouble&left,const StringAndDouble&right)
+{
+    left.data+=right.data;
+    left.str+=right.str;
+};
+inline void operator-=(StringAndDouble&left,const StringAndDouble&right)
+{
+    left.data-=right.data;
+    auto index=left.str.find(right.str);
+    if(index!=std::string::npos)
+    {
+        left.str.replace(index,right.str.length(),"");
+    };
 
+}
 inline std::istream &operator>>(std::istream &in, StringAndDouble &ob)
 {
 
@@ -96,18 +112,20 @@ int main(int argc, char *argv[])
 {
     StringAndDouble hello{"hello", 5.5};
     StringAndDouble world{"world", 12.5};
-    StringAndDouble helloWorld = hello + space + world;
+    StringAndDouble helloWorld = hello;
+    helloWorld+=space;
+    helloWorld+=world;
 
     // helloWorld >> std::cout << std::endl;
-
-    helloWorld = helloWorld[0] - hello[1] - space[1];
+    std::cout<<helloWorld<<std::endl;
+    helloWorld-=space;
 
     // helloWorld >> std::cout << std::endl;
 
     // helloWorld[1] >> (helloWorld[0] >> std::cout) << std::endl;
 
     std::cout << helloWorld << std::endl;
-    std::cin >> helloWorld>>space>>world;
+    std::cin >> helloWorld;
     std::cout << helloWorld << std::endl<<space<<std::endl<<world<<std::endl;
     return 0;
 };
