@@ -1,6 +1,6 @@
 #if !defined(PERSON_H)
 #define PERSON_H
-#include<string>
+#include <string>
 class Person
 {
 protected:
@@ -9,9 +9,10 @@ protected:
     uint16_t age{};
 
 public:
-    Person(const std::string&firstName,const std::string&lastName,const int&age):firstName{firstName},lastName{lastName},age{age}{};
-    ~Person()=default;
-    virtual void printInfo()const;
+    Person(const std::string &firstName, const std::string &lastName, const uint16_t &age);
+    Person(const Person&);
+    virtual ~Person();
+    virtual void printInfo() const;
 };
 
 #endif

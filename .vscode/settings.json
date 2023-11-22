@@ -51,5 +51,6 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "xhash": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }
