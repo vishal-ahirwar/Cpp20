@@ -4,6 +4,7 @@
 #include "utility.hxx"
 #include <string.h>
 
+
 void doSomething(binary func, int a, int b, int &c)
 {
     c = func(a, b);
@@ -16,7 +17,10 @@ void apply(unary func, int &value)
 
 int main(int argc, char *argv[])
 {
-    long long  long have_a_nice_number{};
+    Test test;
+    int x=static_cast<int>(test);
+    onScreen(printd,x);
+    // long long  long have_a_nice_number{};
     int a{5}, b{5}, c{},input{};
 
     binary binary_array[4] = {add, sub, multy, divide};
