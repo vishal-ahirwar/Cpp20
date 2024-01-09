@@ -3,51 +3,86 @@
 // Copyright 2023 Vishal Ahirwar //replace it with yout copyright notice!
 #include <iostream>
 #include <exception>
-
-void b();
-void c();
-void d();
-
-void a()
+class Message :public std::exception
 {
-    b();
+private:
+    const char* str;
+protected:
+    const char* getStr()const { return this->str; };
+public:
+    Message(const char* msg) :str(msg) {};
+    const char* what()const noexcept;
 };
-void b()
+class Warning :public Message
 {
-    c();
+public:
+    Warning(const char* msg) :Message(msg) {};
+    const char* what()const noexcept;
 };
-void c()
+class Error :public Message
 {
-    d();
+public:
+    Error(const char* msg) :Message(msg) {};
+    const char* what()const noexcept;
 };
-void d()
+void throwException(int n)
 {
-    throw new int(-1);
+    switch (n)
+    {
+    case 1:
+        throw Message("don't worry this is just a message!\n");
+    case 2:
+        throw Warning("found a warning you can fix it if you want!\n");
+    case 3:
+        throw Error("critical error found can't proceed further before fixing these errors!\n");
+    case 4:
+        throw -1;
+    default:
+        throw std::exception("unknown exception occured!\n");
+    };
 };
 
 int main(int argc, char *argv[])
 {
-    try
+    for (int i = 0; i < 5; ++i)
     {
-        // a();
-        try
-        {
-            throw "str";
+        try {
+            throwException(i);
         }
-        catch (int n)
+        catch (Warning& warning)
         {
-            printf("%d", n);
+            std::cout << warning.what();
         }
-    }
-    catch (const char *str)
-    {
-        printf("%s", str);
-    }
-    catch (int *e)
-    {
-        printf("%p : %d\n", e, *e);
-        delete e;
-    }
-    std::cout << "\n[N]\n";
+        catch (Error& error)
+        {
+            std::cout << error.what();
+        }
+        catch (Message& msg)
+        {
+            std::cout << msg.what();
+        }
+        catch (std::exception& ex)
+        {
+            std::cout << ex.what();
+        }
+        catch (...)
+        {
+            std::cout << "It shouldn't happen!\n";
+        }
+    };
+    puts("END");
     return 0;
+};
+
+const char* Message::what()const noexcept
+{
+    return this->str;
+};
+const char* Warning::what()const noexcept
+{
+    return this->getStr();
+};
+const char* Error::what()const noexcept
+{
+    return this->getStr();
 };

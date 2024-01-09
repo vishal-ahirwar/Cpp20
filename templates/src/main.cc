@@ -3,52 +3,35 @@
 // Copyright 2023 Vishal Ahirwar //replace it with yout copyright notice!
 //NOTE : this code requires C++20 in order to work properly 
 #include <iostream>
+
 template <typename T, int loop>
 class Data
 {
 private:
-    T data{};
+    T data;
     int count{};
-
 public:
-    Data(const T &);
-    void print() const;
-};
-template <typename T, int loop>
-Data<T, loop>::Data(const T &data)
-{
-    this->count = loop;
-    this->data = data;
-};
+    Data(const T& data) :data{ data }, count{ loop }{};
 
-template <typename T, int loop>
-void Data<T, loop>::print() const
-{
-    for (int i = 0; i < loop; i++)
+    void print()const { for (int i = 0; i < count; ++i)std::cout << data << std::endl; };
+
+    friend std::ostream& operator<<(std::ostream& out, const Data<T, loop>& d)
     {
-        if constexpr (std::is_floating_point<T>())
-        {
-            printf("%f\n", this->data);
-        }
-        else if constexpr(std::is_integral<T>())
-        {
-            printf("%d\n", this->data);
-        }
-        else
-        {
-            printf("%s\n", this->data.c_str());
-        }
-    };
-}
-#define FREQ 5
+        out << d.data << ", " << d.count;
+        return out;
+    }
+};
+#define FREQ 2
 int main(int argc, char *argv[])
 {
 
-    Data<std::string, FREQ> string{"hello!"};
-    Data<double, FREQ> numbers{45.65};
-    Data<int, FREQ>integers{ 5 };
-    numbers.print();
-    string.print();
-    integers.print();
+    Data<std::string, FREQ> string{"hello, world!"};
+    std::cout <<string<<std::endl;
+    Data<double, FREQ> numbers{95.65};
+    std::cout << numbers<<std::endl;
+    Data<int, FREQ>integers{ 50 };
+    std::cout<< integers<<std::endl;
+    Data<char*, FREQ>char_pointer{(char*)"say my name"};
+
     return 0;
 };

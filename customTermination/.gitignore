@@ -10,7 +10,5 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-*.exe
-testNewton/build/testNewton - Shortcut.lnk
-uniquePointer/src/main.exe
-.idea
+
+VSBuild
