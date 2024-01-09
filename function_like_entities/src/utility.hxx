@@ -10,7 +10,8 @@ void onScreen(void (*printFuction)(const char*), const char *str)
 void onScreen(void (*printFunction)(int),int c)
 {
     printFunction(c);
-}
+};
+
 void printd(int c)
 {
     printf("[%d]\n",c);

@@ -110,5 +110,5 @@ void onUnhandledErrorOccured()
          printf("Program will auto terminate in %ds \r", i);
          std::this_thread::sleep_for(std::chrono::seconds(1));
      }
-    std::abort();
+     std::exit(0);
 };
