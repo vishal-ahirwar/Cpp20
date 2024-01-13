@@ -14,6 +14,18 @@ public:
     auto getDouble() const { return this->data; };
     void print() const { std::cout << "[" << str << ", " << data << "]\n"; };
     StringAndDouble operator+(const StringAndDouble &obj);
+
+    void operator++()
+    {
+        ++this->data;
+    }
+
+    StringAndDouble operator++(int)
+    {
+        auto temp=*this;
+        this->data+=1;
+        return temp;
+    }
 };
 //operator overloading
 StringAndDouble StringAndDouble::operator+(const StringAndDouble &obj)
@@ -28,6 +40,11 @@ int main(int argc, char *argv[])
     //using addition overloaded operator here
     StringAndDouble double2 = string + double1+string2;
     double2=double2+double2;
+    double2.print();
+    ++double2;
+    double2.print();
+    auto temp=double2++;
+    temp.print();
     double2.print();
     return 0;
 };
