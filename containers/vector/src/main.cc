@@ -5,7 +5,6 @@
 #include <vector>
 #include<array>
 
-
 template <class type>
 void printVector(std::vector<type> &vec)
 {
@@ -111,12 +110,14 @@ int main(int argc, char *argv[])
             std::cout << "not found!\n";
     };
 
-
-    printThroughIterator(marks_begin_it,marks_end_it);
-    printThroughIterator(r_names_begin_it,r_names_end_it);
-    printThroughIterator(marks_reverse_begin_it,marks_reverse_end_it);
-    printThroughIterator(r_names_reverse_begin_it,r_names_reverse_end_it);
-    printThroughIterator(r_names_reverse_const_begin_it,r_names_reverse_const_end_it);
+    std::string users[]{"any_user@user","lovely_user@user","das@user","homo@user"};
+    for(std::string* it=std::begin(users);it!=std::end(users);++it)std::cout<<*users<<", ";
+    std::cout<<std::endl;
+    // printThroughIterator(marks_begin_it,marks_end_it);
+    // printThroughIterator(r_names_begin_it,r_names_end_it);
+    // printThroughIterator(marks_reverse_begin_it,marks_reverse_end_it);
+    // printThroughIterator(r_names_reverse_begin_it,r_names_reverse_end_it);
+    // printThroughIterator(r_names_reverse_const_begin_it,r_names_reverse_const_end_it);
     // printcollection(subjects);
     // printcollection(r_names);
 
