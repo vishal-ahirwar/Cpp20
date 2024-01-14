@@ -56,22 +56,48 @@ void printSubsetOfCollection(const type&collection,const size_t&begin_offset,con
     std::cout<<std::endl;
 };
 
+template<class iterator>
+void printThroughIterator(iterator begin,iterator end)
+{
+    while(begin!=end)
+    {
+        std::cout<<*begin<<", ";
+        ++begin;
+    };
+    std::cout<<std::endl;
+}
+
 int main(int argc, char *argv[])
 {
     std::vector<int> marks{96, 50, 36};
     std::vector<int>::iterator marks_begin_it=marks.begin();
     std::vector<int>::iterator marks_end_it=marks.end();
 
+    std::vector<int>::reverse_iterator marks_reverse_begin_it=marks.rbegin();
+    std::vector<int>::reverse_iterator marks_reverse_end_it=marks.rend();
+
+    std::vector<int>::const_iterator marks_const_begin_it=marks.cbegin();
+    std::vector<int>::const_iterator marks_const_end_it=marks.cend();
+
     std::vector<std::string> subjects{"cprogramming", "estc", "mathematics 1"};
     std::vector<std::string>::iterator subjects_begin_it=subjects.begin();
     std::vector<std::string>::iterator subjects_end_it=subjects.end();
+
+    std::vector<std::string>::reverse_iterator subjects_reverse_begin_it=subjects.rbegin();
+    std::vector<std::string>::reverse_iterator subjects_reverse_end_it=subjects.rend();
 
     std::array<std::string,4>r_names{"ramesh","rakesh","rohan","ravi"};
     std::array<std::string,4>::iterator r_names_begin_it=r_names.begin();
     std::array<std::string,4>::iterator r_names_end_it=r_names.end();
 
-    printVector<std::string>(subjects);
-    printVector<int>(marks);
+    std::array<std::string,4>::reverse_iterator r_names_reverse_begin_it=r_names.rbegin();
+    std::array<std::string,4>::reverse_iterator r_names_reverse_end_it=r_names.rend();
+
+    std::array<std::string,4>::const_reverse_iterator r_names_reverse_const_begin_it=r_names.crbegin();
+    std::array<std::string,4>::const_reverse_iterator r_names_reverse_const_end_it=r_names.crend();
+
+    // printVector<std::string>(subjects);
+    // printVector<int>(marks);
 
     auto action=[&marks,&subjects]() -> void
     {
@@ -85,13 +111,18 @@ int main(int argc, char *argv[])
             std::cout << "not found!\n";
     };
 
-    printcollection(marks);
-    printcollection(subjects);
-    printcollection(r_names);
 
-    printSubsetOfCollection(marks,0,2);
-    printSubsetOfCollection(subjects,0,2);
-    printSubsetOfCollection(r_names,2,1);
+    printThroughIterator(marks_begin_it,marks_end_it);
+    printThroughIterator(r_names_begin_it,r_names_end_it);
+    printThroughIterator(marks_reverse_begin_it,marks_reverse_end_it);
+    printThroughIterator(r_names_reverse_begin_it,r_names_reverse_end_it);
+    printThroughIterator(r_names_reverse_const_begin_it,r_names_reverse_const_end_it);
+    // printcollection(subjects);
+    // printcollection(r_names);
+
+    // printSubsetOfCollection(marks,0,2);
+    // printSubsetOfCollection(subjects,0,2);
+    // printSubsetOfCollection(r_names,2,1);
     
     return 0;
 };
