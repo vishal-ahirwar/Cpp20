@@ -1,0 +1,10 @@
+#include<troll.hx>
+MAIN_START
+    DEFINE_ARR
+    PRINT_ARR
+    NEWLINE
+    SORT
+    PRINT_ARR
+    NEWLINE
+    RETURN
+MAIN_END;

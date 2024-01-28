@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include<unordered_map>
+#include<unordered_set>
 
 struct DateOfBirth
 {
@@ -67,18 +69,9 @@ public:
 };
 
 using user = std::pair<std::string, User>;
-template <typename T>
-void print(const T &t)
-{
-    for (const auto &v : t)
-    {
-        std::cout << v << "\n----------\n";
-    };
-    std::cout << "\n";
-};
 
-template <>
-void print(const std::map<std::string, User> &data)
+template <class T>
+void print(const T &data)
 {
     for (const auto &v : data)
     {
@@ -87,13 +80,13 @@ void print(const std::map<std::string, User> &data)
     };
     std::cout << "\n";
 };
-
-void registerNewUser(std::map<std::string, User> &dataset)
+template<class T>
+void registerNewUser(T&dataset)
 {
     std::cout << "please enter user name : ";
     std::string user_name{};
     std::getline(std::cin, user_name);
-    std::map<std::string, User>::iterator result = dataset.find(user_name);
+    auto result = dataset.find(user_name);
     if (result != dataset.end())
     {
         std::cout << "[error]User already registered with that user name!\n";
