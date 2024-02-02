@@ -1,13 +1,25 @@
 
 // Auto Genrated C++ file by newton CLI
 // Copyright 2023 Vishal Ahirwar //replace it with yout copyright notice!
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <ranges>
+
 #define msg(str) std::cout << str << std::endl;
-int main(int argc, char *argv[])
+#include <vector>
+#include <iostream>
+#include<algorithm>
+#include<ranges>
+#include "Poco/Timer.h"
+// #include "Poco/Thread.h"
+#include "Poco/Stopwatch.h"
+
+#include<Poco/Net/HTTPRequest.h>
+#include<Poco/URI.h>
+#include<Poco/Net/HTTPClientSession.h>
+#include<Poco/Net/HTTPResponse.h>
+#include<Poco/StreamCopier.h>
+
+int someRandomFunctions(int argc, char *argv[])
 {
+
     std::vector<int> arr{45, 34, 23, 12, 1};
     auto print = [](auto view)
     {for(auto v:view){std::cout<<v<<", ";}std::cout<<std::endl; };
@@ -36,3 +48,58 @@ int main(int argc, char *argv[])
     // TODO : failter based on ages using views
     return 0;
 };
+
+/*
+ * Main application
+ */
+
+class PocoTimer
+{
+public:
+    //------------
+    PocoTimer() { stopWatch.start(); }
+    //------------
+    void PrintElapsedTime(Poco::Timer &timer)
+    {
+        std::cout << "Time elapsed: " << stopWatch.elapsed() / 1000 << " milliseconds." << std::endl;
+    }
+
+    void stopTimer();
+private:
+    Poco::Stopwatch stopWatch;
+};
+void PocoTimer::stopTimer()
+{
+    this->stopWatch.stop();
+};
+
+int main(int argc,char*argv[])
+{
+    if(argc<2)return []()->int{std::cout<<"please provide url for get request.\n";return 1;}();
+    try{
+
+
+        Poco::URI url(argv[1]);
+        Poco::Net::HTTPResponse res{};
+        Poco::Net::HTTPClientSession session{url.getHost(),url.getPort()};
+
+
+        if(url.empty())return -1;
+
+        Poco::Net::HTTPRequest req{Poco::Net::HTTPRequest::HTTP_GET,url.getPathAndQuery(),Poco::Net::HTTPMessage::HTTP_1_1};
+        req.setContentType("application/x-www-form-urlencoded\r\n");
+        session.sendRequest(req);
+
+
+        std::cout<<res.getStatus()<<" "<<res.getReason()<<std::endl;
+        auto &in=session.receiveResponse(res);
+
+        Poco::StreamCopier::copyStream(in,std::cout);
+        std::cout<<std::endl;
+
+    }catch(std::exception&e)
+    {
+        std::cout<<"something went wrong !\n"<<e.what()<<"\n";
+    };
+
+}
